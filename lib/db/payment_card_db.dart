@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:payment_card/model/payment_card.dart';
 import 'package:sqflite/sqflite.dart';
@@ -18,6 +17,24 @@ class PaymentCartDB {
   String colCvv = "cvv";
   String colCardHolderName = "cardHolderName";
   String colShortName = "shortName";
+  String colEnableGrid = 'enableGrid';
+
+  String colGridA = "gridA";
+  String colGridB = "gridB";
+  String colGridC = "gridC";
+  String colGridD = "gridD";
+  String colGridE = "gridE";
+  String colGridF = "gridF";
+  String colGridG = "gridG";
+  String colGridH = "gridH";
+  String colGridI = "gridI";
+  String colGridJ = "gridJ";
+  String colGridK = "gridK";
+  String colGridL = "gridL";
+  String colGridM = "gridM";
+  String colGridN = "gridN";
+  String colGridO = "gridO";
+  String colGridP = "gridP";
 
   PaymentCartDB._internal();
 
@@ -35,15 +52,16 @@ class PaymentCartDB {
   }
 
   Future<Database> initializeDb() async {
-    debugPrint('Initializing DB');
+    print('Initializing DB');
     Directory dir = await getApplicationDocumentsDirectory();
     String path = dir.path + "payment_cards.db";
-    var dbTodos = await openDatabase(path, version: 1, onCreate: _createDb);
-    return dbTodos;
+    var dbPaymentCard =
+        await openDatabase(path, version: 1, onCreate: _createDb);
+    return dbPaymentCard;
   }
 
   void _createDb(Database db, int newVersion) async {
-    debugPrint('Create DB');
+    print('Create DB');
     await db.execute('CREATE TABLE $tblPaymentCard ('
         '$colId INTEGER PRIMARY KEY,'
         '$colBank TEXT,'
@@ -53,19 +71,37 @@ class PaymentCartDB {
         '$colExpiryYear INTEGER,'
         '$colCvv TEXT,'
         '$colCardHolderName TEXT,'
-        '$colShortName TEXT'
+        '$colShortName TEXT,'
+        '$colEnableGrid INTEGER,'
+        '$colGridA TEXT,'
+        '$colGridB TEXT,'
+        '$colGridC TEXT,'
+        '$colGridD TEXT,'
+        '$colGridE TEXT,'
+        '$colGridF TEXT,'
+        '$colGridG TEXT,'
+        '$colGridH TEXT,'
+        '$colGridI TEXT,'
+        '$colGridJ TEXT,'
+        '$colGridK TEXT,'
+        '$colGridL TEXT,'
+        '$colGridM TEXT,'
+        '$colGridN TEXT,'
+        '$colGridO TEXT,'
+        '$colGridP TEXT'
         ')');
   }
 
   Future<int> save(PaymentCard paymentCard) async {
-    debugPrint('Inserting into database: ' + paymentCard.toString());
+    print('Inserting into database: ' + paymentCard.toString());
     Database db = await this.db;
-    var result = await db.insert(tblPaymentCard, paymentCard.toMap());
-    return result;
+    var paymentCardId = await db.insert(tblPaymentCard, paymentCard.toMap());
+
+    return paymentCardId;
   }
 
   Future<List> findAll() async {
-    debugPrint('Find All Payment Cards.');
+    print('Find All Payment Cards.');
     Database db = await this.db;
     var result = await db
         .rawQuery('SELECT * FROM $tblPaymentCard ORDER BY $colShortName ASC');
@@ -74,7 +110,7 @@ class PaymentCartDB {
   }
 
   Future<int> count() async {
-    debugPrint('Count Payment Cards');
+    print('Count Payment Cards');
     Database db = await this.db;
     var result = Sqflite.firstIntValue(
         await db.rawQuery('SELECT COUNT(*) FROM $tblPaymentCard'));
@@ -83,7 +119,7 @@ class PaymentCartDB {
   }
 
   Future<int> update(PaymentCard paymentCard) async {
-    debugPrint('Update Payment Card: ' + paymentCard.toString());
+    print('Update Payment Card: ' + paymentCard.toString());
     Database db = await this.db;
     var result = await db.update(
       tblPaymentCard,
@@ -95,7 +131,7 @@ class PaymentCartDB {
   }
 
   Future<int> delete(int id) async {
-    debugPrint('Delete Payment Card with ID: ' + id.toString());
+    print('Delete Payment Card with ID: ' + id.toString());
     Database db = await this.db;
     var result =
         await db.delete(tblPaymentCard, where: '$colId = ?', whereArgs: [id]);
@@ -103,7 +139,7 @@ class PaymentCartDB {
   }
 
   Future<int> deleteAll() async {
-    debugPrint('Deleting all Payment Card');
+    print('Deleting all Payment Card');
     Database db = await this.db;
     var result = await db.delete(tblPaymentCard);
     return result;

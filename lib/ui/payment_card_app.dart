@@ -97,6 +97,7 @@ class _PaymentCardPageState extends State<PaymentCardPage> {
   }
 
   void populatePaymentCards() {
+    print('Populate List of Payment Cards');
     final dbFuture = db.initializeDb();
     dbFuture.then((value) {
       final paymentCardsFuture = db.findAll();

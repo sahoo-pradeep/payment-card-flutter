@@ -31,6 +31,24 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
   TextEditingController monthController = TextEditingController();
   TextEditingController yearController = TextEditingController();
 
+  bool enableGrid = false;
+  TextEditingController gridAController = TextEditingController();
+  TextEditingController gridBController = TextEditingController();
+  TextEditingController gridCController = TextEditingController();
+  TextEditingController gridDController = TextEditingController();
+  TextEditingController gridEController = TextEditingController();
+  TextEditingController gridFController = TextEditingController();
+  TextEditingController gridGController = TextEditingController();
+  TextEditingController gridHController = TextEditingController();
+  TextEditingController gridIController = TextEditingController();
+  TextEditingController gridJController = TextEditingController();
+  TextEditingController gridKController = TextEditingController();
+  TextEditingController gridLController = TextEditingController();
+  TextEditingController gridMController = TextEditingController();
+  TextEditingController gridNController = TextEditingController();
+  TextEditingController gridOController = TextEditingController();
+  TextEditingController gridPController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     bankController.text = paymentCard.bank;
@@ -39,6 +57,26 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
     nameController.text = paymentCard.cardHolderName;
     monthController.text = paymentCard.expiryMonth.toString();
     yearController.text = paymentCard.expiryYear.toString();
+    enableGrid = paymentCard.enableGrid;
+    if(enableGrid){
+      gridAController.text = paymentCard.grid.gridA;
+      gridBController.text = paymentCard.grid.gridB;
+      gridCController.text = paymentCard.grid.gridC;
+      gridDController.text = paymentCard.grid.gridD;
+      gridEController.text = paymentCard.grid.gridE;
+      gridFController.text = paymentCard.grid.gridF;
+      gridGController.text = paymentCard.grid.gridG;
+      gridHController.text = paymentCard.grid.gridH;
+      gridIController.text = paymentCard.grid.gridI;
+      gridJController.text = paymentCard.grid.gridJ;
+      gridKController.text = paymentCard.grid.gridK;
+      gridLController.text = paymentCard.grid.gridL;
+      gridMController.text = paymentCard.grid.gridM;
+      gridNController.text = paymentCard.grid.gridN;
+      gridOController.text = paymentCard.grid.gridO;
+      gridPController.text = paymentCard.grid.gridP;
+    }
+
 
     textStyle = Theme.of(context).textTheme.headline6;
 
@@ -201,6 +239,23 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                     ),
                   ],
                 ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 15.0),
+                  child: CheckboxListTile(
+                    title: Text(
+                      'Enable Grid',
+                      style: textStyle,
+                    ),
+                    value: enableGrid,
+                    onChanged: (bool value) {
+                      setState(() {
+                        paymentCard.enableGrid = value;
+                        enableGrid = value;
+                      });
+                    },
+                  ),
+                ),
+                gridWidget(),
                 Row(
                   children: <Widget>[
                     saveButton(),
@@ -408,9 +463,31 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
         int.parse(yearController.text) > 2100) {
       await showAlertDialog("Year should be between 2000 and 2100");
       result = false;
+    } else if (enableGrid &&
+        (emptyText(gridAController.text) ||
+            emptyText(gridBController.text) ||
+            emptyText(gridCController.text) ||
+            emptyText(gridDController.text) ||
+            emptyText(gridEController.text) ||
+            emptyText(gridFController.text) ||
+            emptyText(gridGController.text) ||
+            emptyText(gridHController.text) ||
+            emptyText(gridIController.text) ||
+            emptyText(gridJController.text) ||
+            emptyText(gridKController.text) ||
+            emptyText(gridLController.text) ||
+            emptyText(gridMController.text) ||
+            emptyText(gridNController.text) ||
+            emptyText(gridOController.text) ||
+            emptyText(gridPController.text))) {
+      await showAlertDialog("Grid Fields are empty");
+      result = false;
     }
-
     return result;
+  }
+
+  bool emptyText(String text) {
+    return text == null || text.isEmpty;
   }
 
   Future<void> showAlertDialog(String messageContent) async {
@@ -423,7 +500,9 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
               "Forget something?",
               style: textStyle,
             ),
-            content: Text(messageContent,),
+            content: Text(
+              messageContent,
+            ),
             actions: <Widget>[
               RaisedButton(
                 color: Theme.of(context).primaryColorDark,
@@ -444,5 +523,400 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                 borderRadius: BorderRadius.circular(20.0)),
           );
         });
+  }
+
+  Widget gridWidget() {
+    if (!enableGrid) {
+      return Container();
+    }
+
+    return Column(
+      children: <Widget>[
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridAController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridA = gridAController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'A',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridBController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridB = gridBController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'B',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridCController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridC = gridCController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'C',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridDController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridD = gridDController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'D',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridEController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridE = gridEController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'E',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridFController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridF = gridFController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'F',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridGController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridG = gridGController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'G',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridHController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridH = gridHController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'H',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridIController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridI = gridIController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'I',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridJController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridJ = gridJController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'J',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridKController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridK = gridKController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'K',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridLController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridL = gridLController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'L',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridMController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridM = gridMController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'M',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridNController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridN = gridNController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'N',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridOController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridO = gridOController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'O',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 10.0, bottom: 10),
+                child: TextField(
+                  controller: gridPController,
+                  style: textStyle,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly,
+                  ],
+                  onChanged: (value) => {
+                    this.paymentCard.grid.gridP = gridPController.text,
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'P',
+                    labelStyle: textStyle,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

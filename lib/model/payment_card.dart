@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'grid.dart';
 
 class PaymentCard {
   int _id;
@@ -10,20 +10,15 @@ class PaymentCard {
   String _cvv;
   String _cardHolderName;
   String _shortName;
-
-  PaymentCard(this._bank, this._cardType, this._cardNumber, this._expiryMonth,
-      this._expiryYear, this._cvv, this._cardHolderName) {
-    this.shortName = generateShortName();
-  }
+  bool _enableGrid;
+  Grid _grid;
 
   PaymentCard.empty() {
+    this.enableGrid = false;
     this.cardType = CardType.DEBIT;
-    this._expiryMonth = DateTime
-        .now()
-        .month;
-    this._expiryYear = DateTime
-        .now()
-        .year;
+    this.expiryMonth = DateTime.now().month;
+    this.expiryYear = DateTime.now().year;
+    this.grid = Grid.empty();
   }
 
   String get shortName => _shortName;
@@ -80,6 +75,19 @@ class PaymentCard {
     _id = value;
   }
 
+  bool get enableGrid => _enableGrid;
+
+  set enableGrid(bool value) {
+    _enableGrid = value;
+  }
+
+
+  Grid get grid => _grid;
+
+  set grid(Grid value) {
+    _grid = value;
+  }
+
   Map<String, dynamic> toMap() {
     var map = Map<String, dynamic>();
     map["bank"] = _bank;
@@ -90,9 +98,14 @@ class PaymentCard {
     map["cvv"] = _cvv;
     map["cardHolderName"] = _cardHolderName;
     map["shortName"] = _shortName;
+    map["enableGrid"] = _enableGrid;
 
     if (_id != null) {
       map["id"] = _id;
+    }
+
+    if(_enableGrid){
+      map.addAll(_grid.toMap());
     }
 
     return map;
@@ -108,12 +121,15 @@ class PaymentCard {
     this._cvv = obj["cvv"];
     this._cardHolderName = obj["cardHolderName"];
     this._shortName = obj["shortName"];
-    debugPrint('From Object: ' + this.toString());
+    this._enableGrid = obj["enableGrid"] == 0 ? false : true;
+    this._grid = Grid.fromObject(obj);
+
+    print('From Object: ' + this.toString());
   }
 
   @override
   String toString() {
-    return 'PaymentCard{_id: $_id, _bank: $_bank, _cardType: $_cardType, _cardNumber: $_cardNumber, _expiryMonth: $_expiryMonth, _expiryYear: $_expiryYear, _cvv: $_cvv, _cardHolderName: $_cardHolderName, _shortName: $_shortName}';
+    return 'PaymentCard{_id: $_id, _bank: $_bank, _cardType: $_cardType, _cardNumber: $_cardNumber, _expiryMonth: $_expiryMonth, _expiryYear: $_expiryYear, _cvv: $_cvv, _cardHolderName: $_cardHolderName, _shortName: $_shortName, _enableGrid: $_enableGrid, _grid: $_grid}';
   }
 
   String generateShortName() {
@@ -132,20 +148,17 @@ enum CardType {
 
 extension CardTypeExt on CardType {
   String get name {
-    return this
-        .toString()
-        .split('.')
-        .last;
+    return this.toString().split('.').last;
   }
 }
 
 CardType _fromString(String card) {
   switch (card) {
-    case 'DEBIT' :
+    case 'DEBIT':
       return CardType.DEBIT;
-    case 'CREDIT' :
+    case 'CREDIT':
       return CardType.CREDIT;
-    default :
+    default:
       return CardType.DEBIT;
   }
 }
