@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:payment_card/model/PaymentCard.dart';
+import 'package:payment_card/model/payment_card.dart';
 import 'package:sqflite/sqflite.dart';
 
 class PaymentCartDB {

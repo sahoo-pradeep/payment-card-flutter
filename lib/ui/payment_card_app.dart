@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:payment_card/db/PaymentCardDB.dart';
-import 'package:payment_card/model/PaymentCard.dart';
-import 'package:payment_card/ui/PaymentCardDetail.dart';
+import 'package:payment_card/db/payment_card_db.dart';
+import 'package:payment_card/model/payment_card.dart';
+import 'package:payment_card/ui/payment_card_detail.dart';
 
 class PaymentCardApp extends StatelessWidget {
   @override
