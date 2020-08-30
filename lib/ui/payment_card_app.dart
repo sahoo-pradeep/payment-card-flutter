@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:payment_card/db/payment_card_db.dart';
 import 'package:payment_card/model/payment_card.dart';
+import 'package:payment_card/service/auth_service.dart';
 import 'package:payment_card/ui/payment_card_detail.dart';
 
 class PaymentCardApp extends StatelessWidget {
@@ -55,23 +56,26 @@ class _PaymentCardPageState extends State<PaymentCardPage> {
   }
 
   ListView getPaymentCards() {
+    AuthService authService = AuthService();
     TextStyle textStyle = Theme.of(context).textTheme.headline6;
 
     return ListView.builder(
       itemCount: count,
       itemBuilder: (BuildContext context, int index) {
         return Card(
-          color: Theme.of(context).primaryColorLight,
-          elevation: 2.0,
+          elevation: 5.0,
           child: ListTile(
             title: Text(
               this.paymentCards[index].shortName,
               style: textStyle,
             ),
-            onTap: () {
+            onTap: () async {
               debugPrint(
                   'Tapped on card: ' + this.paymentCards[index].toString());
-              navigateToDetail(this.paymentCards[index]);
+              bool authSuccess = await authService.authenticate();
+              if(authSuccess){
+                navigateToDetail(this.paymentCards[index]);
+              }
             },
           ),
         );

@@ -340,7 +340,9 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                 textColor: Theme.of(context).primaryColorLight,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                onPressed: onConfirmDeleteNo,
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
                 child: Text(
                   'No',
                   textScaleFactor: 1.5,
@@ -351,7 +353,10 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                 textColor: Colors.white70,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                onPressed: onConfirmDeleteYes,
+                onPressed: () {
+                  onDeleteButtonPressed();
+                  Navigator.pop(context, true);
+                },
                 child: Text(
                   'Yes',
                   textScaleFactor: 1.5,
@@ -364,15 +369,6 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                 borderRadius: BorderRadius.circular(20.0)),
           );
         });
-  }
-
-  onConfirmDeleteYes() {
-    onDeleteButtonPressed();
-    Navigator.pop(context, true);
-  }
-
-  onConfirmDeleteNo() {
-    Navigator.pop(context, true);
   }
 
   onDeleteButtonPressed() {
@@ -427,15 +423,21 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
               "Forget something?",
               style: textStyle,
             ),
-            content: Text(messageContent),
+            content: Text(messageContent,),
             actions: <Widget>[
-              FlatButton(
-                child: Text("OK", style: textStyle),
+              RaisedButton(
+                color: Theme.of(context).primaryColorDark,
+                textColor: Theme.of(context).primaryColorLight,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
                 onPressed: () {
                   Navigator.pop(context, true);
                 },
-              )
-              //FlatButton("OK")
+                child: Text(
+                  'OK',
+                  textScaleFactor: 1.5,
+                ),
+              ),
             ],
             elevation: 24.0,
             shape: RoundedRectangleBorder(
