@@ -1,16 +1,16 @@
-# payment_card
+# Payment Card - Flutter Project
 
-Payment Card - Flutter Project
+_USP: Zero data usage, Zero Permissions required_
 
-## Getting Started
+_Use: Keep your Debit/Credit details here so that you don't to search for your wallet._
 
-This project is a starting point for a Flutter application.
+## Setup
+1. Install android-sdk (Search in intelliJ preference and get it done)
 
-A few resources to get you started if this is your first Flutter project:
+2. Install inteiiJ Plugins - flutter and Dart
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. Install Flutter SDK etc
+```
+brew install --cask flutter
+flutter doctor -v
+```
