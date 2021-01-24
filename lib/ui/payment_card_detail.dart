@@ -333,7 +333,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
       await showAlertDialog("Year should be between 2000 and 2100");
       result = false;
     } else if (enableGrid &&
-            (emptyText(gridAController.text) ||
+        (emptyText(gridAController.text) ||
             emptyText(gridBController.text) ||
             emptyText(gridCController.text) ||
             emptyText(gridDController.text) ||
@@ -848,11 +848,18 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
         ],
         onChanged: (value) => updateCardNumber(),
         decoration: InputDecoration(
-            labelText: 'Card Number',
-            labelStyle: textStyle,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            )),
+          labelText: 'Card Number',
+          labelStyle: textStyle,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          suffixIcon: IconButton(
+            onPressed: () {
+              Clipboard.setData(ClipboardData(text: cardNumberController.text));
+            },
+            icon: Icon(Icons.copy),
+          ),
+        ),
       ),
     );
   }
