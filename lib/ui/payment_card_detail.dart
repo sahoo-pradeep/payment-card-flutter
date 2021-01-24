@@ -66,6 +66,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
     monthController.text = paymentCard.expiryMonth.toString();
     yearController.text = paymentCard.expiryYear.toString();
     enableGrid = paymentCard.enableGrid;
+
     if (enableGrid) {
       gridAController.text = paymentCard.grid.gridA;
       gridBController.text = paymentCard.grid.gridB;
@@ -91,7 +92,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
       appBar: AppBar(
         title: Text('Card Details'),
       ),
-      body: Padding(
+      body: Container(
         padding: EdgeInsets.all(10.0),
         child: ListView(
           children: <Widget>[
@@ -101,175 +102,28 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   children: [
                     Expanded(
                       flex: 3,
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            bottom: 10.0, top: 10.0, right: 10.0),
-                        child: TextField(
-                          controller: bankController,
-                          style: textStyle,
-                          onChanged: (value) => updateBank(),
-                          decoration: InputDecoration(
-                              labelText: 'Bank',
-                              labelStyle: textStyle,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              )),
-                        ),
-                      ),
+                      child: getBankWidget(),
                     ),
                     Expanded(
                       flex: 2,
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          bottom: 10.0,
-                          top: 10.0,
-                        ),
-                        decoration: ShapeDecoration(
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                width: 0.6, style: BorderStyle.solid),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: ListTile(
-                            title: DropdownButton<CardType>(
-                              style: textStyle,
-                              items: CardType.values
-                                  .map((e) => DropdownMenuItem<CardType>(
-                                        value: e,
-                                        child: Text(e.name),
-                                      ))
-                                  .toList(),
-                              value: paymentCard.cardType,
-                              onChanged: (CardType value) =>
-                                  updateCardType(value),
-                            ),
-                          ),
-                        ),
-                      ),
+                      child: getCardTypeWidget(),
                     ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 15.0),
-                  child: TextField(
-                    controller: cardNumberController,
-                    style: textStyle,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                      WhitelistingTextInputFormatter.digitsOnly,
-                    ],
-                    onChanged: (value) => updateCardNumber(),
-                    decoration: InputDecoration(
-                        labelText: 'Card Number',
-                        labelStyle: textStyle,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        )),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 15.0),
-                  child: TextField(
-                    controller: cvvController,
-                    style: textStyle,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                    onChanged: (value) => updateCvv(),
-                    obscureText: _hiddenCsv,
-                    decoration: InputDecoration(
-                      labelText: 'CVV',
-                      labelStyle: textStyle,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: _toggleHiddenCsv,
-                        icon: _hiddenCsv
-                            ? Icon(Icons.visibility_off)
-                            : Icon(Icons.visibility),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 15.0),
-                  child: TextField(
-                    controller: nameController,
-                    style: textStyle,
-                    onChanged: (value) => updateName(),
-                    decoration: InputDecoration(
-                        labelText: 'Card Holder Name',
-                        labelStyle: textStyle,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        )),
-                  ),
-                ),
+                getCardNumberWidget(),
+                getCvvWidget(),
+                getNameWidget(),
                 Row(
                   children: [
                     Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 15.0, right: 5.0),
-                        child: TextField(
-                          controller: monthController,
-                          style: textStyle,
-                          onChanged: (value) => updateExpiryMonth(),
-                          keyboardType: TextInputType.number,
-                          inputFormatters: <TextInputFormatter>[
-                            WhitelistingTextInputFormatter.digitsOnly,
-                          ],
-                          decoration: InputDecoration(
-                              labelText: 'Expiry Month',
-                              labelStyle: textStyle,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              )),
-                        ),
-                      ),
+                      child: getMonthWidget(),
                     ),
                     Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 15.0, left: 5.0),
-                        child: TextField(
-                          controller: yearController,
-                          style: textStyle,
-                          onChanged: (value) => updateExpiryYear(),
-                          keyboardType: TextInputType.number,
-                          inputFormatters: <TextInputFormatter>[
-                            WhitelistingTextInputFormatter.digitsOnly,
-                          ],
-                          decoration: InputDecoration(
-                              labelText: 'Expiry Year',
-                              labelStyle: textStyle,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              )),
-                        ),
-                      ),
+                      child: getYearWidget(),
                     ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 15.0),
-                  child: CheckboxListTile(
-                    title: Text(
-                      'Enable Grid',
-                      style: textStyle,
-                    ),
-                    value: enableGrid,
-                    onChanged: (bool value) {
-                      setState(() {
-                        paymentCard.enableGrid = value;
-                        enableGrid = value;
-                      });
-                    },
-                  ),
-                ),
+                getEnableGridWidget(),
                 gridWidget(),
                 Row(
                   children: <Widget>[
@@ -479,7 +333,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
       await showAlertDialog("Year should be between 2000 and 2100");
       result = false;
     } else if (enableGrid &&
-        (emptyText(gridAController.text) ||
+            (emptyText(gridAController.text) ||
             emptyText(gridBController.text) ||
             emptyText(gridCController.text) ||
             emptyText(gridDController.text) ||
@@ -932,6 +786,181 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
           ],
         ),
       ],
+    );
+  }
+
+  Widget getBankWidget() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10.0, top: 10.0, right: 10.0),
+      child: TextField(
+        controller: bankController,
+        style: textStyle,
+        onChanged: (value) => updateBank(),
+        decoration: InputDecoration(
+            labelText: 'Bank',
+            labelStyle: textStyle,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            )),
+      ),
+    );
+  }
+
+  Widget getCardTypeWidget() {
+    return Container(
+      margin: EdgeInsets.only(
+        bottom: 10.0,
+        top: 10.0,
+      ),
+      decoration: ShapeDecoration(
+        shape: RoundedRectangleBorder(
+          side: BorderSide(width: 0.6, style: BorderStyle.solid),
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        ),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: ListTile(
+          title: DropdownButton<CardType>(
+            style: textStyle,
+            items: CardType.values
+                .map((e) => DropdownMenuItem<CardType>(
+                      value: e,
+                      child: Text(e.name),
+                    ))
+                .toList(),
+            value: paymentCard.cardType,
+            onChanged: (CardType value) => updateCardType(value),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget getCardNumberWidget() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 15.0),
+      child: TextField(
+        controller: cardNumberController,
+        style: textStyle,
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly,
+        ],
+        onChanged: (value) => updateCardNumber(),
+        decoration: InputDecoration(
+            labelText: 'Card Number',
+            labelStyle: textStyle,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            )),
+      ),
+    );
+  }
+
+  Widget getCvvWidget() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 15.0),
+      child: TextField(
+        controller: cvvController,
+        style: textStyle,
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly,
+        ],
+        onChanged: (value) => updateCvv(),
+        obscureText: _hiddenCsv,
+        decoration: InputDecoration(
+          labelText: 'CVV',
+          labelStyle: textStyle,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          suffixIcon: IconButton(
+            onPressed: _toggleHiddenCsv,
+            icon: _hiddenCsv
+                ? Icon(Icons.visibility_off)
+                : Icon(Icons.visibility),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget getNameWidget() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 15.0),
+      child: TextField(
+        controller: nameController,
+        style: textStyle,
+        onChanged: (value) => updateName(),
+        decoration: InputDecoration(
+            labelText: 'Card Holder Name',
+            labelStyle: textStyle,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            )),
+      ),
+    );
+  }
+
+  Widget getMonthWidget() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 15.0, right: 5.0),
+      child: TextField(
+        controller: monthController,
+        style: textStyle,
+        onChanged: (value) => updateExpiryMonth(),
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly,
+        ],
+        decoration: InputDecoration(
+            labelText: 'Expiry Month',
+            labelStyle: textStyle,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            )),
+      ),
+    );
+  }
+
+  Widget getYearWidget() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 15.0, left: 5.0),
+      child: TextField(
+        controller: yearController,
+        style: textStyle,
+        onChanged: (value) => updateExpiryYear(),
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly,
+        ],
+        decoration: InputDecoration(
+            labelText: 'Expiry Year',
+            labelStyle: textStyle,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            )),
+      ),
+    );
+  }
+
+  Widget getEnableGridWidget() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 15.0),
+      child: CheckboxListTile(
+        title: Text(
+          'Enable Grid',
+          style: textStyle,
+        ),
+        value: enableGrid,
+        onChanged: (bool value) {
+          setState(() {
+            paymentCard.enableGrid = value;
+            enableGrid = value;
+          });
+        },
+      ),
     );
   }
 }
