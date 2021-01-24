@@ -2,7 +2,7 @@
 
 _USP: Zero data usage, Zero Permissions required_
 
-## Keep your Debit/Credit details here so that you don't to search for your wallet.
+_Use: Keep your Debit/Credit details here so that you don't to search for your wallet._
 
 ## Setup
 1. Install android-sdk (Search in intelliJ preference and get it done)
