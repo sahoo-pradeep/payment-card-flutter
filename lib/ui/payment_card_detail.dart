@@ -24,6 +24,14 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
 
   _PaymentCardDetailState(this.paymentCard);
 
+  bool _hiddenCsv = true;
+
+  void _toggleHiddenCsv() {
+    setState(() {
+      _hiddenCsv = !_hiddenCsv;
+    });
+  }
+
   TextEditingController bankController = TextEditingController();
   TextEditingController cardNumberController = TextEditingController();
   TextEditingController cvvController = TextEditingController();
@@ -58,7 +66,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
     monthController.text = paymentCard.expiryMonth.toString();
     yearController.text = paymentCard.expiryYear.toString();
     enableGrid = paymentCard.enableGrid;
-    if(enableGrid){
+    if (enableGrid) {
       gridAController.text = paymentCard.grid.gridA;
       gridBController.text = paymentCard.grid.gridB;
       gridCController.text = paymentCard.grid.gridC;
@@ -76,7 +84,6 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
       gridOController.text = paymentCard.grid.gridO;
       gridPController.text = paymentCard.grid.gridP;
     }
-
 
     textStyle = Theme.of(context).textTheme.headline6;
 
@@ -170,15 +177,23 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                     style: textStyle,
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[
-                      WhitelistingTextInputFormatter.digitsOnly,
+                      FilteringTextInputFormatter.digitsOnly,
                     ],
                     onChanged: (value) => updateCvv(),
+                    obscureText: _hiddenCsv,
                     decoration: InputDecoration(
-                        labelText: 'CVV',
-                        labelStyle: textStyle,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        )),
+                      labelText: 'CVV',
+                      labelStyle: textStyle,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      suffixIcon: IconButton(
+                        onPressed: _toggleHiddenCsv,
+                        icon: _hiddenCsv
+                            ? Icon(Icons.visibility_off)
+                            : Icon(Icons.visibility),
+                      ),
+                    ),
                   ),
                 ),
                 Padding(
