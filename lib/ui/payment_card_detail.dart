@@ -411,7 +411,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridA = gridAController.text,
@@ -434,7 +434,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridB = gridBController.text,
@@ -457,7 +457,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridC = gridCController.text,
@@ -480,7 +480,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridD = gridDController.text,
@@ -507,7 +507,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridE = gridEController.text,
@@ -530,7 +530,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridF = gridFController.text,
@@ -553,7 +553,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridG = gridGController.text,
@@ -576,7 +576,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridH = gridHController.text,
@@ -603,7 +603,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridI = gridIController.text,
@@ -626,7 +626,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridJ = gridJController.text,
@@ -649,7 +649,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridK = gridKController.text,
@@ -672,7 +672,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridL = gridLController.text,
@@ -699,7 +699,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridM = gridMController.text,
@@ -722,7 +722,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridN = gridNController.text,
@@ -745,7 +745,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridO = gridOController.text,
@@ -768,7 +768,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
                   style: textStyle,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly,
+                    FilteringTextInputFormatter.digitsOnly,
                   ],
                   onChanged: (value) => {
                     this.paymentCard.grid.gridP = gridPController.text,
@@ -844,7 +844,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
         style: textStyle,
         keyboardType: TextInputType.number,
         inputFormatters: <TextInputFormatter>[
-          WhitelistingTextInputFormatter.digitsOnly,
+          FilteringTextInputFormatter.digitsOnly,
         ],
         onChanged: (value) => updateCardNumber(),
         decoration: InputDecoration(
@@ -912,7 +912,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
         onChanged: (value) => updateExpiryMonth(),
         keyboardType: TextInputType.number,
         inputFormatters: <TextInputFormatter>[
-          WhitelistingTextInputFormatter.digitsOnly,
+          FilteringTextInputFormatter.digitsOnly,
         ],
         decoration: InputDecoration(
             labelText: 'Expiry Month',
@@ -933,7 +933,7 @@ class _PaymentCardDetailState extends State<PaymentCardDetail> {
         onChanged: (value) => updateExpiryYear(),
         keyboardType: TextInputType.number,
         inputFormatters: <TextInputFormatter>[
-          WhitelistingTextInputFormatter.digitsOnly,
+          FilteringTextInputFormatter.digitsOnly,
         ],
         decoration: InputDecoration(
             labelText: 'Expiry Year',
